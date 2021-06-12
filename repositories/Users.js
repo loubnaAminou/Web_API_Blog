@@ -1,6 +1,14 @@
 const { User } = require('../models')
 
-console.log(User);
+// console.log(User);
+// async function ft(){
+//   const allPugs = await User.findAll({
+//   attributes: ['id'] // like saying: SELECT id, name, age from pugs;
+// })
+// for(var i=0;i<20;i++)
+//   console.log((allPugs[i].get({plain: true}).id))
+// }
+// ft()
 
 module.exports = { 
     getAllUsers() { 
