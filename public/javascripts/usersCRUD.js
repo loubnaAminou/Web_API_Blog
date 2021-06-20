@@ -70,7 +70,7 @@ function updateUser(id,username,email,password,role){
     /* set values on the form */
     document.getElementById("username").setAttribute("value",username);
     document.getElementById("email").setAttribute("value",email);
-    document.getElementById("password").setAttribute("value",password);
+    document.getElementById("oldPassword").setAttribute("value",password);
     document.getElementById("role").setAttribute("value",role);
 
     const form = document.getElementById("UpdateUser");
@@ -122,3 +122,43 @@ function deleteUser(id){
     })
        location.reload();
 }
+
+/* get Admins-Authors-Guests */
+function getUserByRole(role){
+    console.log(role);
+    const path = 'http://localhost:3000/users/role/'+role;
+    var tab_users = document.getElementById("tab_users");
+
+    fetch(path)
+    .then(response => response.json())
+    .then((data) => {
+        let tbody = document.createElement("tbody");
+        tbody.setAttribute("id","tab_users");
+        for(let i=0; i<data.length; i++){
+            /* Use of `` to multi-line strings */
+             element = `<td> 
+               ${data[i].id}
+               </td>
+               <td>
+               ${data[i].username}
+               </td>
+               <td>
+               ${data[i].email}
+               </td>
+               <td>
+               ${data[i].role}
+               </td>
+               `;
+               
+             let row = document.createElement("tr");
+             row.innerHTML = element;
+             tbody.appendChild(row);
+           }
+           tab_users.parentNode.replaceChild(tbody, tab_users)
+
+            
+    }).catch(err => {
+        alert(err);
+    })
+}
+

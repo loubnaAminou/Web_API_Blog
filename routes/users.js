@@ -6,8 +6,18 @@ router.get('/', async function(req, res, next) {
   res.send(await usersRepo.getAllUsers()) 
 });
 
+router.get('/page/:page', async function(req, res, next) { 
+  // console.log("page "+req.params.page);
+  res.send(await usersRepo.getUsers(req.params.page)) 
+});
+
 router.get('/:id',async function(req, res, next) { 
   res.send(await usersRepo.getUser(req.params.id) ) 
+});
+
+router.get('/role/:role',async function(req, res, next) { 
+  console.log(req.params.role)
+  res.send(await usersRepo.getUserByRole(req.params.role) ) 
 });
 
 router.put('/:id',async function(req, res, next) { 

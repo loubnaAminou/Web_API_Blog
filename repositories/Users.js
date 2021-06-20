@@ -1,47 +1,25 @@
 const { User } = require('../models')
 
-// console.log(User);
-// async function ft(){
-//   const allPugs = await User.findAll({
-//   attributes: ['id'] // like saying: SELECT id, name, age from pugs;
-// })
-// for(var i=0;i<20;i++)
-//   console.log((allPugs[i].get({plain: true}).id))
-// }
-// ft()
-
 module.exports = { 
     getAllUsers() { 
       return User.findAll() 
     },
-     getUsers: function(off = 0, lim = 10){
-        return User.findAll({offset : off, limit : lim}) ;
+     getUsers(page = 1){
+       const limit = 5;
+        offset = limit * (page-1);
+        return User.findAll({offset : offset, limit : limit}) ;
         /*
          offset : debut
          limit : nombre des occurences à récupérer
          */
       },
-     getAdmins(){
-        User.findAll({
+     getUserByRole(Role){
+        return User.findAll({
             where: {
-                role : 'admin'
+                role : Role
               }
           });
       },
-     getAuthors(){
-        User.findAll({
-            where: {
-                role : 'author'
-              }
-          });
-      }, 
-     getGuests(){ 
-        User.findAll({
-            where: {
-                role : 'guest'
-              }
-          });
-     }, 
      getUser(id){
         return User.findOne({
             where: {
